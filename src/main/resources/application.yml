@@ -1,20 +1,20 @@
 spring:
+  application:
+    name: purchase-service
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/purchase'
-    username: 'postgres'
-    password: '1945'
-    driver-class-name: 'org.postgresql.Driver'
+    url: jdbc:postgresql://localhost:5432/purchase
+    username: postgres
+    password: 1945
+    driver-class-name: org.postgresql.Driver
   jpa:
-    database: 'postgresql'
-    database-platform: 'org.hibernate.dialect.PostgreSQL10Dialect'
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     hibernate:
       # create-drop only for tests
-      ddl-auto: 'create-drop'
-#info:
-#  app:
-#    description:
-#    name:
-#    build-time: "${System.env['BUILD_ID']}"
-#    build-tag: "${System.env['BUILD_TAG']}"
-#    revision:
-#    version:
+      ddl-auto: create-drop
+
+management:
+  endpoints.web.exposure.include: '*'
+  endpoint:
+    health:
+      show-details: always
