@@ -3,9 +3,14 @@ spring:
     name: purchase-service
   output.ansi.enabled: ALWAYS
   datasource:
-    url: jdbc:postgresql://localhost:5432/purchase
-    username: postgres
-    password: 1945
+# online db
+    url: ${vars.url}
+    username: ${vars.username}
+    password: ${vars.pass}
+# locale db
+#    url: jdbc:postgresql://localhost:5432/purchase
+#    username: postgres
+#    password: 1945
     driver-class-name: org.postgresql.Driver
   jpa:
     database: postgresql
