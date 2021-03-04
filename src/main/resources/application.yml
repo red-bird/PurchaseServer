@@ -1,6 +1,7 @@
 spring:
   application:
     name: purchase-service
+  output.ansi.enabled: ALWAYS
   datasource:
     url: jdbc:postgresql://localhost:5432/purchase
     username: postgres
