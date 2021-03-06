@@ -1,0 +1,11 @@
+spring:
+  output.ansi.enabled: ALWAYS
+  application:
+    name: purchase-service
+  cloud:
+    config:
+      disovery:
+        enabled: true
+        serviceId: config-server
+    bootstrap:
+      enabled: true
