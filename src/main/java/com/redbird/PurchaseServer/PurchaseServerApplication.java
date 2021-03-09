@@ -3,9 +3,11 @@ package com.redbird.PurchaseServer;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @OpenAPIDefinition
+@EnableEurekaClient
 public class PurchaseServerApplication {
 
 	public static void main(String[] args) {
