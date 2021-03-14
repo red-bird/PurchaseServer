@@ -3,6 +3,7 @@ package com.redbird.PurchaseServer.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Data
 @Entity
@@ -12,8 +13,13 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long customer;
-    private String date;
-    private String goodName;
+    private String name;
+    private String description;
     private Double cost;
+    private String category;
+    private Long amount;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "check_id")
+    private Check check;
+
 }
