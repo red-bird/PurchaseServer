@@ -26,15 +26,20 @@ public class PurchaseController {
         return purchaseService.findById(id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Purchase savePurchase(@RequestBody Purchase purchase) {
-        return purchaseService.savePurchase(purchase);
+    @GetMapping("/customer/{id}")
+    public List<Purchase> findByCustomerId(@PathVariable("id") Long id) {
+        return purchaseService.findByCustomerId(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id") Long id) {
-        purchaseService.deleteById(id);
-    }
+//    @PostMapping
+//    public Purchase savePurchase(@RequestBody Purchase purchase) {
+//        return purchaseService.savePurchase(purchase);
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public void deleteById(@PathVariable("id") Long id) {
+//        purchaseService.deleteById(id);
+//    }
 
     @PatchMapping("/{id}")
     public Purchase updatePurchase(@PathVariable("id") Long id, @RequestBody Map<String, Object> fields) {

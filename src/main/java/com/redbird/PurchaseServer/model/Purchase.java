@@ -18,6 +18,7 @@ public class Purchase {
     private Double cost;
     private String category;
     private Long amount;
+    private Long customerId;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "check_id")
     private Check check;

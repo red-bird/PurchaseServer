@@ -44,7 +44,7 @@ public class BuyFeignController {
     }
 
     @PostMapping
-    private Check buyGoods(@RequestBody BuyQuery buyQuery) {
+    private CheckDTO buyGoods(@RequestBody BuyQuery buyQuery) {
         if (!isInEnum(buyQuery.getPaymentMethod(), PaymentMethod.class)) {
             return null;
         }
@@ -61,6 +61,8 @@ public class BuyFeignController {
 
         return buyFeignService.registerCheck(boughtGoodDTOList, PaymentMethod.valueOf(buyQuery.getPaymentMethod()));
     }
+
+
 
     public <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
         for (E e : enumClass.getEnumConstants()) {

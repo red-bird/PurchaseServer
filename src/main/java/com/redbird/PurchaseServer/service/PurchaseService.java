@@ -22,11 +22,15 @@ public class PurchaseService {
         return purchaseRepository.findById(id).orElse(null);
     }
 
-    public Purchase savePurchase(Purchase purchase) {
+    public List<Purchase> findByCustomerId(Long id) {
+        return purchaseRepository.findByCustomerId(id);
+    }
+
+    private Purchase savePurchase(Purchase purchase) {
         return purchaseRepository.save(purchase);
     }
 
-    public void deleteById(Long id) {
+    private void deleteById(Long id) {
         purchaseRepository.deleteById(id);
     }
 
@@ -37,30 +41,16 @@ public class PurchaseService {
         }
 
         fields.forEach((name, value) -> {
-            if (name.equals("customer")) {
-                try {
-                    purchase.setCustomer(Long.parseLong((String)value));
-                }
-                catch (NumberFormatException e) {
-                    System.out.println(e.getMessage());
+            try {
+                if (name.equals("category")) {
+                    purchase.setCategory((String) value);
                 }
             }
-            if (name.equals("date")) {
-                purchase.setGoodName((String) value);
-            }
-            if (name.equals("goodName")) {
-                purchase.setGoodName((String) value);
-            }
-            if (name.equals("cost")) {
-                try {
-                    purchase.setCost(Double.parseDouble((String)value));
-                }
-                catch (NumberFormatException e) {
-                    System.out.println(e.getMessage());
-                }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
-        savePurchase(purchase);
-        return purchase;
+        return savePurchase(purchase);
     }
+
 }
