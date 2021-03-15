@@ -6,6 +6,8 @@ import java.util.List;
 
 @Data
 public class BuyQuery {
+    private Long customerId;
+    private String shopName;
     private String paymentMethod;
-    private List<BuyGoodDTO> buyGoodDTOS;
+    private List<GoodDTO> GoodDTOS;
 }

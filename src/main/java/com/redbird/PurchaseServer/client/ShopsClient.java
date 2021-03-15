@@ -1,7 +1,7 @@
 package com.redbird.PurchaseServer.client;
 
 import com.redbird.PurchaseServer.model.BoughtGoodDTO;
-import com.redbird.PurchaseServer.model.BuyGoodDTO;
+import com.redbird.PurchaseServer.model.BuyQuery;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +29,6 @@ public interface ShopsClient {
     public List<BoughtGoodDTO> findByCustomerId(@PathVariable("customerId") Long customerId);
 
     @PostMapping
-    public List<BoughtGoodDTO> buyGoods(@RequestBody List<BuyGoodDTO> goodDTOList);
+    public List<BoughtGoodDTO> buyGoods(@RequestBody BuyQuery buyQuery);
 
 }

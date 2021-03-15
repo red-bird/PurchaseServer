@@ -63,13 +63,9 @@ public class BuyFeignController {
             return null;
         }
 
-        if (!buyFeignService.checkAllFromSameShop(buyQuery.getBuyGoodDTOS())) {
-            return null;
-        }
-
         var circuit = factory.create("buyQuery-circuit");
-        var res = shopsClient.buyGoods(buyQuery.getBuyGoodDTOS());
-        List<BoughtGoodDTO> boughtGoodDTOList = circuit.run(() -> res, null);
+        List<BoughtGoodDTO> boughtGoodDTOList = shopsClient.buyGoods(buyQuery);
+//        List<BoughtGoodDTO> boughtGoodDTOList = circuit.run(() -> res, null);
 
 
         if ((boughtGoodDTOList == null) || (boughtGoodDTOList.size()==0)) {

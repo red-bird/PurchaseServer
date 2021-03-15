@@ -19,18 +19,22 @@ public class BuyFeignService {
     private CheckRepository checkRepository;
 
     public CheckDTO registerCheck(List<BoughtGoodDTO> boughtGoodDTOList, PaymentMethod paymentMethod) {
-        BoughtGoodDTO boughtGoodDTO = boughtGoodDTOList.get(0);
-        Check check = new Check();
-        check.setCustomerId(boughtGoodDTO.getCustomerId());
-        check.setShopName(boughtGoodDTO.getShopName());
-        check.setBoughtTime(boughtGoodDTO.getBoughtTime());
-        check.setPaymentMethod(paymentMethod);
+        Check check = makeCheck(boughtGoodDTOList.get(0), paymentMethod);
         check = checkRepository.save(check);
         List<Purchase> purchaseList = registerPurchasesOnCheck(boughtGoodDTOList, check);
         return makeCheckDTO(check, convertToPurchaseDTOList(purchaseList));
     }
 
     // assist methods
+
+    private Check makeCheck(BoughtGoodDTO boughtGoodDTO, PaymentMethod paymentMethod) {
+        Check check = new Check();
+        check.setCustomerId(boughtGoodDTO.getCustomerId());
+        check.setShopName(boughtGoodDTO.getShopName());
+        check.setBoughtTime(boughtGoodDTO.getBoughtTime());
+        check.setPaymentMethod(paymentMethod);
+        return check;
+    }
 
     private CheckDTO makeCheckDTO(Check check, List<PurchaseDTO> purchaseDTOList) {
         CheckDTO checkDTO = new CheckDTO();
@@ -66,20 +70,20 @@ public class BuyFeignService {
         return purchaseRepository.saveAll(purchaseList);
     }
 
-    public boolean checkAllFromSameShop(List<BuyGoodDTO> buyGoodDTOList) {
-        if ((buyGoodDTOList == null) || (buyGoodDTOList.size()==0)) {
-            return false;
-        }
-        boolean flag = true;
-        String shopName = buyGoodDTOList.get(0).getGoodDTO().getShopName();
-        for (BuyGoodDTO buyGoodDTO : buyGoodDTOList) {
-            if (!buyGoodDTO.getGoodDTO().getShopName().equals(shopName)) {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
-    }
+//    public boolean checkAllFromSameShop(List<BuyGoodDTO> buyGoodDTOList) {
+//        if ((buyGoodDTOList == null) || (buyGoodDTOList.size()==0)) {
+//            return false;
+//        }
+//        boolean flag = true;
+//        String shopName = buyGoodDTOList.get(0).getGoodDTO().getShopName();
+//        for (BuyGoodDTO buyGoodDTO : buyGoodDTOList) {
+//            if (!buyGoodDTO.getGoodDTO().getShopName().equals(shopName)) {
+//                flag = false;
+//                break;
+//            }
+//        }
+//        return flag;
+//    }
 
     public List<Purchase> convertToListPurchase(List<BoughtGoodDTO> boughtGoodDTOList, Check check) {
         if (boughtGoodDTOList == null) return null;
