@@ -31,7 +31,8 @@ public class PurchaseServerApplication {
 	public Customizer<Resilience4JCircuitBreakerFactory> defaultCustomizer() {
 		return factory -> factory.configureDefault(id -> new Resilience4JConfigBuilder(id)
 				.timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(4)).build())
-				.circuitBreakerConfig(CircuitBreakerConfig.custom().slidingWindowSize(20).build())
+				.circuitBreakerConfig(CircuitBreakerConfig.custom().slidingWindowSize(20).failureRateThreshold(33.3F)
+						.slowCallRateThreshold(33.3F).build())
 				.build());
 	}
 

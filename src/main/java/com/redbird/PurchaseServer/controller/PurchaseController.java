@@ -1,33 +1,32 @@
 package com.redbird.PurchaseServer.controller;
 
-import com.redbird.PurchaseServer.model.Purchase;
+import com.redbird.PurchaseServer.model.PurchaseOutput;
 import com.redbird.PurchaseServer.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/purchase")
+@RequestMapping("/purchase")
 public class PurchaseController {
 
     @Autowired
     private PurchaseService purchaseService;
 
     @GetMapping
-    public List<Purchase> findAll() {
+    public List<PurchaseOutput> findAll() {
         return purchaseService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Purchase findById(@PathVariable("id") Long id) {
+    public PurchaseOutput findById(@PathVariable("id") Long id) {
         return purchaseService.findById(id);
     }
 
     @GetMapping("/customer/{id}")
-    public List<Purchase> findByCustomerId(@PathVariable("id") Long id) {
+    public List<PurchaseOutput> findByCustomerId(@PathVariable("id") Long id) {
         return purchaseService.findByCustomerId(id);
     }
 
@@ -42,7 +41,7 @@ public class PurchaseController {
 //    }
 
     @PatchMapping("/{id}")
-    public Purchase updatePurchase(@PathVariable("id") Long id, @RequestBody Map<String, Object> fields) {
+    public PurchaseOutput updatePurchase(@PathVariable("id") Long id, @RequestBody Map<String, Object> fields) {
         return purchaseService.updateById(id, fields);
     }
 }

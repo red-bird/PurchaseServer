@@ -5,12 +5,13 @@ import com.redbird.PurchaseServer.model.*;
 import com.redbird.PurchaseServer.service.BuyFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
+import org.springframework.cloud.openfeign.FeignCircuitBreaker;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/buy")
+@RequestMapping("/buy")
 public class BuyFeignController {
 
     @Autowired
@@ -24,37 +25,27 @@ public class BuyFeignController {
 
     @GetMapping
     public List<BoughtGoodDTO> findAll() {
-        var circuit = factory.create("findAll-circuit");
-        var res = shopsClient.findAll();
-        return circuit.run(() -> res, null);
+        return shopsClient.findAll();
     }
 
     @GetMapping("/{id}")
     public BoughtGoodDTO findById(@PathVariable("id") Long id) {
-        var circuit = factory.create("findById-circuit");
-        var res = shopsClient.findById(id);
-        return circuit.run(() -> res, null);
+        return shopsClient.findById(id);
     }
 
     @GetMapping("/name/{name}")
     public List<BoughtGoodDTO> findByGoodName(@PathVariable("name") String goodName) {
-        var circuit = factory.create("shop-circuit");
-        var res = shopsClient.findByGoodName(goodName);
-        return circuit.run(() -> res, null);
+        return shopsClient.findByGoodName(goodName);
     }
 
     @GetMapping("/shop/{shop}")
     public List<BoughtGoodDTO> findByShopName(@PathVariable("shop") String shopName) {
-        var circuit = factory.create("shop-circuit");
-        var res = shopsClient.findByShopName(shopName);
-        return circuit.run(() -> res, null);
+        return shopsClient.findByShopName(shopName);
     }
 
     @GetMapping("/customer/{customerId}")
     public List<BoughtGoodDTO> findByCustomerId(@PathVariable("customerId") Long customerId) {
-        var circuit = factory.create("customerId-circuit");
-        var res = shopsClient.findByCustomerId(customerId);
-        return circuit.run(() -> res, null);
+        return shopsClient.findByCustomerId(customerId);
     }
 
     @PostMapping
@@ -63,10 +54,7 @@ public class BuyFeignController {
             return null;
         }
 
-        var circuit = factory.create("buyQuery-circuit");
         List<BoughtGoodDTO> boughtGoodDTOList = shopsClient.buyGoods(buyQuery);
-//        List<BoughtGoodDTO> boughtGoodDTOList = circuit.run(() -> res, null);
-
 
         if ((boughtGoodDTOList == null) || (boughtGoodDTOList.size()==0)) {
             return null;
@@ -76,6 +64,10 @@ public class BuyFeignController {
     }
 
 
+
+    public List<BoughtGoodDTO> fallBack() {
+        return null;
+    }
 
     public <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
         for (E e : enumClass.getEnumConstants()) {

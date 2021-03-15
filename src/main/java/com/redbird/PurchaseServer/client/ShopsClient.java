@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "shops-service", path = "/api/v1/buy")
+@FeignClient(name = "shops-service", path = "/buy", fallbackFactory = ShopsClientFallback.class)
 public interface ShopsClient {
 
     @GetMapping
