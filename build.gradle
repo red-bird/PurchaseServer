@@ -44,10 +44,13 @@ dependencies {
 	implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.6.4'
 	implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.5'
-	// config + discovery
+	// spring cloud
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
 	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
 
 	runtimeOnly 'org.postgresql:postgresql'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
@@ -67,6 +70,6 @@ springBoot{
 	buildInfo()
 }
 
-test {
-	useJUnitPlatform()
-}
+//test {
+//	useJUnitPlatform()
+//}

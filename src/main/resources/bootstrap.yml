@@ -1,5 +1,4 @@
 spring:
-  output.ansi.enabled: ALWAYS
   application:
     name: purchase-service
   cloud:
