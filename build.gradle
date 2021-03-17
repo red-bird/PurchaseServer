@@ -70,6 +70,6 @@ springBoot{
 	buildInfo()
 }
 
-test {
-	useJUnitPlatform()
-}
+//test {
+//	useJUnitPlatform()
+//}

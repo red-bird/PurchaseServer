@@ -3,6 +3,7 @@ package com.redbird.PurchaseServer;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.timelimiter.TimeLimiterConfig;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JCircuitBreakerFactory;
@@ -22,9 +23,12 @@ import java.util.TimeZone;
 @EnableFeignClients
 public class PurchaseServerApplication {
 
+	@Value("${spring.jpa.hibernate.jdbc.time_zone}")
+	private String timezone;
+
 	@PostConstruct
 	void init() {
-		TimeZone.setDefault(TimeZone.getTimeZone("Europe/Moscow"));
+		TimeZone.setDefault(TimeZone.getTimeZone(timezone));
 	}
 
 	@Bean

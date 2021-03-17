@@ -20,9 +20,6 @@ public class BuyFeignController {
     @Autowired
     private BuyFeignService buyFeignService;
 
-    @Autowired
-    private Resilience4JCircuitBreakerFactory factory;
-
     @GetMapping
     public List<BoughtGoodDTO> findAll() {
         return shopsClient.findAll();
